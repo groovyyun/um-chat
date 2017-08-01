@@ -9,11 +9,14 @@ html
     script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js')
 
   body
-    div#userlist
-      span#nickname
-        = nickname
-    div#chatbox
-      ul#messages
-      form#chat_bar
-        input#mi(autocomplete='off')
-        //button#mb(type='submit') send
+    div.container
+      div.top_box
+        div#userlist
+          span#nickname
+            = nickname
+        div#chatbox
+          ul#messages
+      div.bottom_box
+        form#chat_bar
+          input#mi(autocomplete='off')
+          //button#mb(type='submit') send
