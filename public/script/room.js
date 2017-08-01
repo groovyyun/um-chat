@@ -12,7 +12,7 @@ function getCookie(cname){
 
 $(document).ready(function(){
   var socket = io.connect(server);
-  var nickname = getCookie('nickname');
+  var nickname = decodeURIComponent(getCookie('nickname'));
 
 
   $(function () {
