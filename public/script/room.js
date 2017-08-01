@@ -1,4 +1,4 @@
-var server = 'localhost:3080';
+var server = 'um-chat.io:3080';
 
 function getCookie(cname){
   var name = cname + "=";
