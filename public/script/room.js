@@ -2,7 +2,8 @@
 var urlParser = document.createElement('a');
 urlParser.href = location.href;
 var server = urlParser.hostname+':3080';
-console.log("socket.io host>> "+server);
+var blankPattern = /^\s+|\s+$/g;
+
 function getCookie(cname){
   var name = cname + "=";
   var ca = document.cookie.split(';');
@@ -38,7 +39,7 @@ $(document).ready(function(){
             + '</div>'
     }
     $('#messages').append($(msg));
-    $("#messages").scrollTop($(document).height());
+    $("#messages").scrollTop($("#messages")[0].scrollHeight);
   });
 
   socket.on('room_arm', function(data){
@@ -51,14 +52,18 @@ $(document).ready(function(){
 
   $('#chat_bar').submit(function(){
     var message = $('#mi').val();
+    var isBlank = message.replace(blankPattern, '' ) == "" ? true : false;
+
+    if(!message || isBlank) return false;
+
     var data =   {
       roomId: roomId,
       nickname : nickname,
       message : message
     };
     socket.emit('chat_msg',data);
-    // console.log(data);
     $('#mi').val('');
+    $('#mi').focus();
     return false;
   });
 
