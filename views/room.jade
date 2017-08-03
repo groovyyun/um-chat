@@ -2,21 +2,27 @@ doctype html
 html
   head
     meta(charset='utf-8')
+    meta(name='viewport' content='widht=device-width, initial-scale=1')
+    meta(name='description' content='')
     title room bitch
     link(rel='stylesheet', type='text/css', href='css/style.css')
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
     script(src='http://code.jquery.com/jquery-1.11.0.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
     script(src='/script/room.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js')
 
   body
-    div.container
+    div.container-box
       div.top_box
-        div#userlist
-          span#nickname
-            = nickname
         div#chatbox
           ul#messages
+        div#userlist.hidden-xs
+          span#nickname
+            = nickname
       div.bottom_box
         form#chat_bar
-          input#mi(autocomplete='off')
-          //button#mb(type='submit') send
+          label.sr-only(for='mi')
+            |message
+          input#mi.form-control(autocomplete='off' placeholder='내용을 입력하세요(최대 100자)')
+          button#mb.btn.btn-submit.btn-block(type='submit') 보내기
