@@ -1,13 +1,16 @@
 /*@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);*/
-@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
-/*@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);*/
+/*@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);*/
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+/*@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);*/
+
 /*@import url(//fonts.googleapis.com/earlyaccess/nanumbrushscript.css);*/
 * {
   /*margin: 0; padding: 0; box-sizing: border-box;*/
-  font-family: 'Hanna', sans-serif;
+  /*font-family: 'Hanna', sans-serif;*/
   /*font-family: 'Nanum Pen Script', sans-serif;*/
   /*font-family: 'Nanum Brush Script', sans-serif;*/
-
+  /*font-family: 'NanumBarunGothic', '나눔바른고딕', sans-serif;*/
+  font-family: 'Jeju Gothic', sans-serif;
 }
 
   html, body {
@@ -93,10 +96,15 @@
   }
 }
 
+  #nickname {display: none;}
   #userlist{
     background-color: #EEEEEE;
     height: 100%; width:20%;
     float:right;
+    padding:10px 16px;
+  }
+  #userlist span{
+    display: inherit;
   }
 
   #chat_bar{
@@ -122,10 +130,16 @@
 
   .form-signin {
     color:#212121;
-    max-width: 330px;
+    max-width: 500px;
     padding: 15px;
     margin: 0 auto;
   }
   .form-signin .form-signin-heading{
     margin-bottom: 10px;
+  }
+  .anytext{
+    color:#212121;
+    max-width: 500px;
+    padding: 15px;
+    margin: 0 auto;
   }
