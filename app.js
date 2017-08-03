@@ -29,7 +29,7 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookie(cookieKey));
 app.set('view engine', 'jade');
-app.set('views', './views');
+app.set('views', __dirname + '/views');
 
 app.get('/', function(req, res){
   res.render('login');
