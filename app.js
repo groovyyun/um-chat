@@ -4,6 +4,7 @@ var cookie = require('cookie-parser')
 var bodyParser = require('body-parser');
 var path = require('path');
 var http = require('http');
+var date = require('date-utils');
 var httpServer = http.createServer(app).listen(3080, function(req,res){
   console.log('Socket IO server has been started');
 });
@@ -42,9 +43,38 @@ app.post('/room', function(req, res){
   res.render('room', {nickname: nickname});
 });
 
+//status 001 - connect, 002 - disconnect
 io.on('connection', function(socket){
+  socket.on('join_room', function(data){
+    socket.join(data.roomId);
+    var datas = {
+      connection: true,
+      nickname: data.nickname
+    };
+    io.sockets.in(data.roomId).emit('room_arm', datas);
+    console.log(data.nickname+ 'is join room :'+data.roomId);
+  });
+
+  socket.on('leave_room', function(data){
+    socket.leave(data.roomId);
+    var datas = {
+      connection: false,
+      nickname: data.nickname
+    };
+    io.sockets.in(data.roomId).emit('room_arm', datas);
+    console.log(data.nickname+' is leave room:'+data.roomId);
+  });
+
   socket.on('chat_msg', function(data){
-    console.log('chat:'+data.nickname+':'+data.message);
-    io.emit('chat_msg', data);
+    var datetime = new Date().toFormat('YYYY-MM-DD HH24:MI:SS');
+    var datas = {
+      nickname: data.nickname,
+      message: data.message,
+      date: datetime
+    };
+    // socket.emit('chat_msg', datas);
+    io.sockets.in(data.roomId).emit('room_msg', datas);
+    // console.log('room:'+data.roomId
+    //             +' / chat:'+data.nickname+':'+data.message);
   });
 });
