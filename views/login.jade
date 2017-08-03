@@ -2,14 +2,32 @@ doctype html
 html
   head
     meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, inital-scale=1')
+    meta(name='description' content='')
     title login
     link(rel='stylesheet', type='text/css', href='css/style.css')
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
     script(src='http://code.jquery.com/jquery-1.11.0.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js')
-  body
-    div.centered
-      form#login(action='/room' method='post')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+
+    script.
+      $(function(){
+        $('#login').submit(function(){
+          if( $('#nick').val() ){
+            $('#login').submit();
+          }else{
+              $('#error').show();
+          }
+          return false;
+        });
+      });
+  body.bg_login
+    div.container
+      form#login.form-signin(action='/room' method='post')
+        h2.form-signin-heading
+          |누구여?
+        span#error(style='display:none;')
+          |닉네임을 입력하세요.
+        input#nick.input-lg.form-control(type='text' name='nickname' placeholder='닉네임' autocomplete='off' required autofocus)
         p
-          input(type='text' name='nickname' placeholder='별명')
-        p
-          button(type='submit') 들어가기
+        button.btn-lg.btn-block(type='submit') 들어가기
