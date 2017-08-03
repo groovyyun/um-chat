@@ -10,10 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "connect-redis": "^3.3.0",
     "cookie-parser": "^1.4.3",
     "date-utils": "^1.2.21",
     "express": "^4.15.3",
+    "express-session": "^1.15.5",
     "jade": "^1.11.0",
+    "redis": "^2.7.1",
     "socket.io": "^2.0.3"
   }
 }
