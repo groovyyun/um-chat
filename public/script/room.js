@@ -1,5 +1,8 @@
-var server = 'um-chat.tk:3080';
-
+//var server = 'um-chat.tk:3080';
+var urlParser = document.createElement('a');
+urlParser.href = location.href;
+var server = urlParser.hostname+':3080';
+console.log("socket.io host>> "+server);
 function getCookie(cname){
   var name = cname + "=";
   var ca = document.cookie.split(';');
@@ -13,22 +16,50 @@ function getCookie(cname){
 $(document).ready(function(){
   var socket = io.connect(server);
   var nickname = decodeURIComponent(getCookie('nickname'));
+  var roomId= '1818'
 
+  socket.emit('join_room',{roomId: roomId, nickname: nickname});
 
-  $(function () {
-    $('form').submit(function(){
-      var message = $('#mi').val();
-      socket.emit('chat_msg', {nickname : nickname, message : message});
-      $('#mi').val('');
-      return false;
-    });
-    socket.on('chat_msg', function(data){
-      $('#messages').append($('<li><span>'
-                                + data.nickname
-                                + '</span>:<span>'
-                                + data.message
-                                + '</span>'));
-    });
+  $(window).on('beforeunload', function(){
+    socket.emit('leave_room', {roomId: roomId, nickname: nickname});
   });
 
-});
+  socket.on('room_msg', function(data){
+    var msg = '';
+    if(data.nickname == nickname){
+      msg = '<li class="text-right"><span>'+ data.nickname
+            + '</span><span>' + data.date
+            + '</span><br><div>' + data.message
+            + '</div>'
+    }else{
+      msg = '<li><span>'+ data.nickname
+            + '</span><span>' + data.date
+            + '</span><br><div>' + data.message
+            + '</div>'
+    }
+    $('#messages').append($(msg));
+    $("#messages").scrollTop($(document).height());
+  });
+
+  socket.on('room_arm', function(data){
+    var statusMsg = data.connection ?
+                    ' 님이 입장하셨습니다.</h4>' : ' 님이 퇴장하셨습니다.</h4>';
+    $('#messages').append($('<h4>' + data.nickname + statusMsg));
+    $("#messages").scrollTop($(document).height());
+  });
+
+
+  $('#chat_bar').submit(function(){
+    var message = $('#mi').val();
+    var data =   {
+      roomId: roomId,
+      nickname : nickname,
+      message : message
+    };
+    socket.emit('chat_msg',data);
+    // console.log(data);
+    $('#mi').val('');
+    return false;
+  });
+
+}); //document.ready -- END
