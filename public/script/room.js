@@ -39,14 +39,22 @@ $(document).ready(function(){
             + '</div>'
     }
     $('#messages').append($(msg));
-    $("#messages").scrollTop($("#messages")[0].scrollHeight);
+    $('#messages').scrollTop($('#messages')[0].scrollHeight);
   });
 
   socket.on('room_arm', function(data){
-    var statusMsg = data.connection ?
-                    ' 님이 입장하셨습니다.</h4>' : ' 님이 퇴장하셨습니다.</h4>';
+    if(data.connection){
+      statusMsg = ' 님이 입장하셨습니다.</h4>';
+    }else{
+      statusMsg = ' 님이 퇴장하셨습니다.</h4>';
+    }
+    $('.users').remove();
+    $.each(data.userlist,function(key,value) {
+       console.log('key:'+key+', value:'+value);
+      $('#userlist').append('<span class="users" id="'+key+'">'+ value +'</span>');
+    });
     $('#messages').append($('<h4>' + data.nickname + statusMsg));
-    $("#messages").scrollTop($(document).height());
+    $('#messages').scrollTop($('#messages')[0].scrollHeight);
   });
 
 
