@@ -48,13 +48,16 @@ $(document).ready(function(){
     }else{
       statusMsg = ' 님이 퇴장하셨습니다.</h4>';
     }
+    $('#messages').append($('<h4>' + data.nickname + statusMsg));
+    $('#messages').scrollTop($('#messages')[0].scrollHeight);
+  });
+
+  socket.on('room_userlist', function(userlist){
     $('.users').remove();
-    $.each(data.userlist,function(key,value) {
+    $.each(userlist, function(key,value) {
       //  console.log('key:'+key+', value:'+value);
       $('#userlist').append('<span class="users" id="'+key+'">'+ value +'</span>');
     });
-    $('#messages').append($('<h4>' + data.nickname + statusMsg));
-    $('#messages').scrollTop($('#messages')[0].scrollHeight);
   });
 
 
