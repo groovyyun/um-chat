@@ -50,7 +50,7 @@ $(document).ready(function(){
     }
     $('.users').remove();
     $.each(data.userlist,function(key,value) {
-       console.log('key:'+key+', value:'+value);
+      //  console.log('key:'+key+', value:'+value);
       $('#userlist').append('<span class="users" id="'+key+'">'+ value +'</span>');
     });
     $('#messages').append($('<h4>' + data.nickname + statusMsg));

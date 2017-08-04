@@ -113,6 +113,7 @@
   #mi{
     height:100%; width:80%;
     float:left;
+    padding: 0 16px;
   }
   #mb{
     height:100%; width:20%;
