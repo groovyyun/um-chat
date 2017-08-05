@@ -13,16 +13,16 @@ html
     script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js')
 
   body
-    div.container-box
-      div.top_box
+    nav.navbar.main-color.navbar-fixed-top
+      div.container
+    div.container.container-box
+      div.content-top
         div#chatbox
           ul#messages
         div#userlist.hidden-xs
           div#nickname
             = nickname
-      div.bottom_box
+      div.content-bottom
         form#chat_bar
-          label.sr-only(for='mi')
-            |message
-          input#mi.form-control(autocomplete='off' placeholder='내용을 입력하세요(최대 100자)')
+          input#mi.form-control(type='textarea' autocomplete='off' placeholder='내용을 입력하세요(최대 100자)' maxlength='100')
           button#mb.btn.btn-submit.btn-block(type='submit') 보내기
