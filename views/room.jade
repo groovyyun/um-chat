@@ -2,20 +2,19 @@ doctype html
 html
   head
     meta(charset='utf-8')
-    meta(name='viewport' content='widht=device-width, initial-scale=1')
-    meta(name='description' content='')
-    title 방안이야
+    meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
+    meta(name='viewport' content='width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no')
+    meta(name='format-detection' content='telephone=no')
     link(rel='stylesheet', type='text/css', href='css/style.css')
     link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
     script(src='http://code.jquery.com/jquery-1.11.0.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
     script(src='/script/room.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js')
-
+    title 방안이야
   body
-    nav.navbar.main-color.navbar-fixed-top
-      div.container
-    div.container.container-box
+    nav.nav-bar
+    div.content-box
       div.content-top
         div#chatbox
           ul#messages
