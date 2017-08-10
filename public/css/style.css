@@ -12,13 +12,16 @@
     background-color: #FFC107;
   }
   nav ul {
-    position: relative; margin: 0px; padding: 0px;
+    position: relative;
+    margin: 0px;
+    padding: 0px;
   }
   nav ul li {
     display: inline;
   }
   .clearfix{
-    margin: 0; padding: 0;
+    margin: 0;
+    padding: 0;
   }
   .main-color{
     background-color: #FFC107;
@@ -65,12 +68,23 @@
     overflow-y: scroll;
     -ms-overflow-y: scroll;
   }
-  #messages h4 { color:#FFC107; text-align: center;}
-  #messages li { padding: 10px 16px; line-height: 1.5em;}
-  /*#messages li:nth-child(odd) { background: #9e9e9e; }*/
+  #messages h4 {
+    color:#FFC107;
+    text-align: center;
+  }
+  #messages li {
+    padding: 10px 16px;
+    line-height: 1.5em;
+  }
   #messages li span {}
-  #messages li span:first-child{font-weight: bold; font-size: 18px;}
-  #messages li span:nth-child(2) {margin-left: 10px; font-size :13px; color:#9e9e9e;}
+  #messages li span:first-child{
+    font-weight: bold;
+    font-size: 18px;
+  }
+  #messages li span:nth-child(2) {
+    margin-left: 10px;
+    font-size :13px; color:#9e9e9e;
+  }
   #messages li span:last-child {
     font-size: 18px;
     width: 100%;
@@ -86,15 +100,6 @@
     max-width: 100%;
     word-wrap: break-word;
     white-space: pre-wrap;
-  }
-
-  .wrap-msg {
-    font-size: 18px;
-    display: inline-block;
-    padding:8px;
-    border-radius: 4px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    background-color: #fff;
   }
 
 @media (max-width: 767px){
