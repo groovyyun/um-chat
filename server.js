@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var redis = require('redis');
-var cookie = require('cookie-parser')
+var cookie = require('cookie-parser');
 var bodyParser = require('body-parser');
 var path = require('path');
 var http = require('http');
@@ -12,6 +12,7 @@ var httpServer = http.createServer(app).listen(3080, function(req,res){
 var io = require('socket.io').listen(httpServer);
 var secretKey = 'aka.willshine_deV_um_@33aa~@#5';
 var redisClient = redis.createClient();
+
 app.listen(3000, function(){
   var txt = '';
   if( process.env.NODE_ENV == 'production' ) {
@@ -36,29 +37,25 @@ redisClient.on("error", function (err) {
     console.log("Error " + err);
 });
 
-function refreshUserList(roomId, user, push){
-  // console.log(roomId + ' / '+user.nickname + ' / '+user.socketId+' / '+ push);
-  if(push){
-    redisClient.hset(roomId, user.socketId, user.nickname, redis.print);
-  }else{
-    redisClient.hdel(roomId, user.socketId, redis.print);
-  }
 
-  redisClient.hgetall(roomId, function (err, userlist) {
-      // console.log(userlist);
-      if(userlist != undefined && userlist != null){
-        io.sockets.in(roomId).emit('room_userlist', userlist);
-      }
-  });
+app.use ('/', require('./router/home.js')(app));
+app.use('/room', require('./router/room.js')(app, redisClient));
 
+function refreshUserList(redis, roomId, user, push){
+    // console.log(roomId + ' / '+user.nickname + ' / '+user.socketId+' / '+ push);
+    if(push){
+        redis.hset(roomId, user.socketId, user.nickname);
+    }else{
+        redis.hdel(roomId, user.socketId);
+    }
+
+    redis.hgetall(roomId, function (err, userlist) {
+        // console.log(userlist);
+        if(userlist != undefined && userlist != null){
+            io.sockets.in(roomId).emit('room_userlist', userlist);
+        }
+    });
 }
-
-app.get('/', function(req, res){
-    res.render('login');
-});
-
-app.use('/room', require('./routes/room.js')(app));
-
 
 //status 001 - connect, 002 - disconnect
 io.on('connection', function(socket){
@@ -73,7 +70,7 @@ io.on('connection', function(socket){
     };
     socket.username = nickname;
     io.sockets.in(data.roomId).emit('room_arm', datas);
-    refreshUserList(data.roomId, {socketId: socketId, nickname: nickname}, true );
+    refreshUserList(redisClient, data.roomId, {socketId: socketId, nickname: nickname}, true );
   });
 
   socket.on('leave_room', function(data){
@@ -86,7 +83,7 @@ io.on('connection', function(socket){
       nickname: nickname
     };
     io.sockets.in(data.roomId).emit('room_arm', datas);
-    refreshUserList(data.roomId, {socketId: socketId, nickname: nickname}, false);
+    refreshUserList(redisClient, data.roomId, {socketId: socketId, nickname: nickname}, false);
   });
 
   socket.on('chat_msg', function(data){
