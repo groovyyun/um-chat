@@ -1,10 +1,11 @@
 @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 * {
-  font-family: 'Jeju Gothic', sans-serif !important;
+
   margin:0; padding:0;
 }
 
   html, body {
+    font-family: 'Jeju Gothic', sans-serif !important;
     margin:0;padding:0;
     height:100%;
   }
@@ -25,6 +26,9 @@
   }
   .main-color{
     background-color: #FFC107;
+  }
+  .font-gray{
+    color: #525252;
   }
   .full-wh{
     width: 100%;
@@ -164,3 +168,30 @@
     padding: 15px;
     margin: 0 auto;
   }
+
+  /* lobby */
+
+#roomlist {
+  width: 100%;
+  height:100%;
+  background-color:#fff;
+  overflow-y: scroll;
+  -ms-overflow-y: scroll;
+}
+#roomlist .row-wrapper{
+  display: table;
+  height:7%; width:100%;
+  border-bottom:1px solid lightgray;
+}
+#roomlist .row-wrapper:first-child {
+  font-weight: bold;
+}
+#roomlist .row-wrapper div{
+  display: table-cell;
+  font-size:18px;
+  text-align: center;
+  vertical-align: middle;
+}
+#roomlist  .row-wrapper div:first-child {
+  width:75%;
+}

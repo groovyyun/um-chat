@@ -4,4 +4,16 @@ block content
   script(src='/script/lobby.js')
   nav.nav-bar
   div.content-box
-    div#roomlist(style='border:1px solid gray; height:100%; background-color:#fff;')
+    div#roomlist
+      div.row-wrapper
+        div 방제목
+        div 인원
+      //- div.head(style='border:1px solid green; width:25%; height:100%;')
+      //-   |개설자  
+      for room in rooms
+        div.row-wrapper
+          div= room.title
+          div #{room.num} / #{room.max}
+      else
+        div.row-wrapper
+          div.font-gray 방이 없수다
